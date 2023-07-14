@@ -26,7 +26,7 @@ const scrollTo = (section: string) => {
   </div>
 
   <!-- main page -->
-  <!-- <div id="home" class="section"><Home /></div> -->
+  <div id="home" class="section"><Home /></div>
   <div id="about" class="section"><About /></div>
   <div id="service" class="section"><Service /></div>
   <div id="portfolio" class="section"><Portfolio /></div>

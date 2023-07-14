@@ -19,13 +19,6 @@ onMounted(() => {
 
   camera.position.z = 30
 
-  function handleScroll() {
-    if (window) {
-      scrollY = window.scrollY
-      camera.position.z = 30 + scrollY * 0.05
-    }
-  }
-
   window.addEventListener('scroll', handleScroll)
 
   const geometry = new THREE.BoxGeometry(10, 10, 10, 10)
@@ -64,10 +57,29 @@ onMounted(() => {
 
   Array(200).fill(0).forEach(generateCube)
 
+  // Set initial target color
+  let targetColor = new THREE.Color()
+
+  // Set speed for color transition
+  let transitionSpeed = 0.05
+
+  function handleScroll() {
+    if (window) {
+      // camera movement
+      scrollY = window.scrollY
+      camera.position.z = 30 + scrollY * 0.05
+
+      // cube color change
+      let hue = (scrollY % 360) / 360
+      targetColor.setHSL(hue, 1, 0.5)
+    }
+  }
+
   function animate() {
     requestAnimationFrame(animate)
     cube.rotation.x += 0.01
     cube.rotation.y += 0.01
+    cube.material.color.lerp(targetColor, transitionSpeed)
 
     cubes.forEach((cube) => {
       cube.rotation.x += 0.002

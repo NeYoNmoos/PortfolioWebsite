@@ -1,5 +1,6 @@
 <script setup lang="ts"></script>
 
-<template>test</template>
-
+<template>
+  <div class="h-screen">Portfolio</div>
+</template>
 <style scoped></style>
