@@ -14,7 +14,7 @@ const scrollTo = (section: string) => {
 
 <template>
   <!-- top bar -->
-  <div class="navbar bg-base-100 top sticky top-0 z-50">
+  <div class="navbar bg-base-0 top sticky top-0 z-50">
     <a class="btn btn-ghost" @click="scrollTo('home')">
       <img class="h-10" src="../assets/icons/logo.png" />
     </a>
@@ -26,7 +26,7 @@ const scrollTo = (section: string) => {
   </div>
 
   <!-- main page -->
-  <div id="home" class="section"><Home /></div>
+  <!-- <div id="home" class="section"><Home /></div> -->
   <div id="about" class="section"><About /></div>
   <div id="service" class="section"><Service /></div>
   <div id="portfolio" class="section"><Portfolio /></div>

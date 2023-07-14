@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>test</template>
+<template><div class="h-screen">Service</div></template>
 
 <style scoped></style>

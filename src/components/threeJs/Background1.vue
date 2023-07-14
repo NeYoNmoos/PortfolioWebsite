@@ -1,27 +1,41 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, onUnmounted } from 'vue'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 const mount = ref()
+let camera
+let renderer
+let scrollY = undefined as any
 
 onMounted(() => {
+  window.addEventListener('resize', onWindowResize, false)
+
   const scene = new THREE.Scene()
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-  const renderer = new THREE.WebGLRenderer()
+  camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+  renderer = new THREE.WebGLRenderer()
   renderer.setPixelRatio(window.devicePixelRatio)
   renderer.setSize(window.innerWidth, window.innerHeight)
 
   camera.position.z = 30
 
+  function handleScroll() {
+    if (window) {
+      scrollY = window.scrollY
+      camera.position.z = 30 + scrollY * 0.05
+    }
+  }
+
+  window.addEventListener('scroll', handleScroll)
+
   const geometry = new THREE.BoxGeometry(10, 10, 10, 10)
   const edges = new THREE.EdgesGeometry(geometry)
-  const material = new THREE.LineBasicMaterial({ color: 0x910a0a })
+  const material = new THREE.LineBasicMaterial({ color: 0xde0404 })
   const cube = new THREE.LineSegments(edges, material)
   scene.add(cube)
 
-  const gridHelper = new THREE.GridHelper(200, 50)
-  scene.add(gridHelper)
+  // const gridHelper = new THREE.GridHelper(200, 50)
+  // scene.add(gridHelper)
 
   // const controls = new OrbitControls(camera, renderer.domElement)
 
@@ -70,6 +84,17 @@ onMounted(() => {
   mount.value?.appendChild(renderer.domElement)
   animate()
 })
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+
+  renderer.setSize(window.innerWidth, window.innerHeight)
+}
+
+onUnmounted(() => {
+  window.removeEventListener('resize', onWindowResize, false)
+})
 </script>
 
 <template>
@@ -83,6 +108,6 @@ onMounted(() => {
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 10;
+  z-index: -1;
 }
 </style>
