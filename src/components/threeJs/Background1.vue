@@ -90,7 +90,21 @@ onMounted(async () => {
     if (window) {
       // camera movement
       scrollY = window.scrollY
+      // camera.position.z = 30 + scrollY * 0.05
+
+      // camera.position.x = 30 * Math.sin(scrollY * 0.005)
       camera.position.z = 30 + scrollY * 0.05
+
+      if (scrollY > 1200) {
+        console.log('cam:')
+        console.log(camera.position)
+        camera.position.y = (scrollY - 1200) * 0.1
+      }
+      // camera.fov = 75 + scrollY * 0.01
+      // camera.updateProjectionMatrix()
+
+      // Ensure camera still looks at the center of the scene
+      camera.lookAt(scene.position)
 
       // cube color change
       let hue = (scrollY % 360) / 360
