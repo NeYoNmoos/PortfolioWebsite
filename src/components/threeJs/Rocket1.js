@@ -235,7 +235,7 @@ Rocket.prototype.flyPath = function () {
 //Largely insipred by Karim Maaloul's Amazing work here https://codepen.io/Yakudoo/pen/eNmjEv
 // https://codepen.io/Yakudoo/
 
-function setSmokeCoords() {
+export function setSmokeCoords() {
   rocket1.bodyMid.geometry.computeBoundingBox()
   var boundingBox = rocket1.bodyMid.geometry.boundingBox
   worldCoords = new THREE.Vector3()
@@ -244,7 +244,7 @@ function setSmokeCoords() {
   worldCoords.add(boundingBox.min)
   worldCoords.applyMatrix4(rocket1.bodyMid.matrixWorld)
 }
-function dropSmoke(s) {
+export function dropSmoke(s) {
   s.mesh.material.opacity = 1
   s.mesh.position.x = worldCoords.x
   s.mesh.position.y = worldCoords.y
@@ -270,18 +270,18 @@ function dropSmoke(s) {
   })
   smokeTl.add(tweenSmokeEnter).add(tweenSmokeLeave, 0.6).play()
 }
-function createDroppingWaste() {
+export function createDroppingWaste() {
   var s = getSmokeParticle()
   dropSmoke(s)
 }
-function getSmokeParticle() {
+export function getSmokeParticle() {
   if (smokeRecycle.length) {
     return smokeRecycle.pop()
   } else {
     return new SmokeParticle()
   }
 }
-function resetSmoke(s) {
+export function resetSmoke(s) {
   s.mesh.position.x = 0
   s.mesh.position.y = 0
   s.mesh.position.z = 0
@@ -294,7 +294,7 @@ function resetSmoke(s) {
   scene.add(s.mesh)
   smokeRecycle.push(s)
 }
-function SmokeParticle() {
+export function SmokeParticle() {
   this.geometry = new THREE.IcosahedronGeometry(75, 1)
   this.material = new THREE.MeshLambertMaterial({
     color: 'white',
@@ -304,7 +304,7 @@ function SmokeParticle() {
   this.mesh = new THREE.Mesh(this.geometry, this.material)
   resetSmoke(this)
 }
-function updateSmokeArr() {
+export function updateSmokeArr() {
   if (freqCount % frequency == 0) {
     createDroppingWaste()
   }
@@ -312,11 +312,11 @@ function updateSmokeArr() {
 }
 
 //Create Stuff
-function createRocket() {
+export function createRocket() {
   rocket1 = new Rocket()
   scene.add(rocket1.rocket)
 }
-function createPath() {
+export function createPath() {
   spline = new THREE.Curves.CinquefoilKnot(700)
 
   var material = new THREE.LineBasicMaterial({ color: 0x2c2c2c })
@@ -328,7 +328,7 @@ function createPath() {
   line = new THREE.Line(geometryt, material)
   scene.add(line)
 }
-function createPlanet() {
+export function createPlanet() {
   moonMat = new THREE.MeshLambertMaterial({
     color: 0x4c00b4,
     wireframe: false,
@@ -341,7 +341,7 @@ function createPlanet() {
   scene.add(moon)
 }
 
-function createLights() {
+export function createLights() {
   light = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.5)
 
   shadowLight = new THREE.DirectionalLight(0xffffff, 0.8)
@@ -358,7 +358,7 @@ function createLights() {
   scene.add(light)
   scene.add(shadowLight)
 }
-function makeCylinder(radiusTop, radiusBottom, height, radiusSegments, heightSegments, mat) {
+export function makeCylinder(radiusTop, radiusBottom, height, radiusSegments, heightSegments, mat) {
   var geom = new THREE.CylinderGeometry(
     radiusTop,
     radiusBottom,
@@ -369,7 +369,7 @@ function makeCylinder(radiusTop, radiusBottom, height, radiusSegments, heightSeg
   var mesh = new THREE.Mesh(geom, mat)
   return mesh
 }
-function onWindowResize() {
+export function onWindowResize() {
   HEIGHT = window.innerHeight
   WIDTH = window.innerWidth
   windowHalfX = WIDTH / 2
@@ -379,10 +379,10 @@ function onWindowResize() {
   camera.updateProjectionMatrix()
 }
 
-function render() {
+export function render() {
   renderer.render(scene, camera)
 }
-function animate() {
+export function animate() {
   requestAnimationFrame(animate)
   render()
   setSmokeCoords()

@@ -7,6 +7,7 @@ import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry.js'
 import ThreeText from './ThreeText'
 import { TextureLoader } from 'three'
 import Rocket from './Rocket1.js'
+import { setSmokeCoords, dropSmoke } from './Smoke.js'
 
 const mount = ref()
 let camera
@@ -249,6 +250,9 @@ onMounted(async () => {
     })
 
     rocket.rotation.y += 0.02
+
+    // setSmokeCoords(rocket)
+    // dropSmoke(mySmokeObject)
 
     // controls.update()
 
