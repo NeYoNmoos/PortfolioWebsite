@@ -15,7 +15,7 @@ let activeTab = ref(tabContent[0])
 </script>
 
 <template>
-  <div class="h-screen flex flex-col justify-center">
+  <div class="h-screen flex flex-row items-center justify-between">
     <div class="ml-24 max-w-xxl p-6 mx-auto bgColor text-white">
       <h1 class="text-6xl">About Me</h1>
       <p class="text-md mt-5 max-w-xl">
