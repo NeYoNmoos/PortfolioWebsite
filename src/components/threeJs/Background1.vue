@@ -29,7 +29,7 @@ onMounted(async () => {
 
   // making text
   let loader = new FontLoader()
-  loader.load('/src/assets/fonts/helvetiker_regular.typeface.json', function (loadedFont) {
+  loader.load('/public/fonts/helvetiker_regular.typeface.json', function (loadedFont) {
     let textMaker = new ThreeText()
 
     let material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 })
@@ -62,7 +62,7 @@ onMounted(async () => {
   scene.add(cube)
 
   const profileLoader = new TextureLoader()
-  const profileTexture = profileLoader.load('/src/assets/icons/profile_picture.jpeg')
+  const profileTexture = profileLoader.load('/public/icons/profile_picture.jpeg')
   const profileMaterial = new THREE.MeshBasicMaterial({
     map: profileTexture,
     transparent: true,
