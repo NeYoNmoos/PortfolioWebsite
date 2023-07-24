@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

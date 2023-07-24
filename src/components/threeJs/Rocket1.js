@@ -302,7 +302,6 @@ export function SmokeParticle() {
     transparent: true
   })
   this.mesh = new THREE.Mesh(this.geometry, this.material)
-  resetSmoke(this)
 }
 export function updateSmokeArr() {
   if (freqCount % frequency == 0) {

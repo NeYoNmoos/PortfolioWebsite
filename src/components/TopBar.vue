@@ -37,7 +37,7 @@ let currentSection = ref('home')
 
 <template>
   <!-- top bar -->
-  <div class="navbar bg-base-0 top sticky top-0 z-50">
+  <div class="navbar bg-base-0 top sticky top-0 z-50 text-white">
     <a class="btn btn-ghost" @click="scrollTo('home')">
       <img class="h-10" src="../assets/icons/logo.png" />
     </a>
@@ -71,6 +71,25 @@ let currentSection = ref('home')
       :class="{ 'underline-red': currentSection === 'kontakt' }"
       >Kontakt</a
     >
+    <div class="flex space-x-4 ml-auto mr-4">
+      <a
+        href="https://www.linkedin.com/in/matthias-hefel-1438b81b5/"
+        target="_blank"
+        class="text-white hover:text-blue-500"
+      >
+        <i class="fab fa-linkedin fa-lg"></i>
+      </a>
+      <a href="https://github.com/NeYoNmoos" target="_blank" class="text-white hover:text-gray-500">
+        <i class="fab fa-github fa-lg"></i>
+      </a>
+      <a
+        href="https://gitlab.com/Matthias.H"
+        target="_blank"
+        class="text-white hover:text-orange-500"
+      >
+        <i class="fab fa-gitlab fa-lg"></i>
+      </a>
+    </div>
   </div>
 
   <!-- main page -->
@@ -82,6 +101,7 @@ let currentSection = ref('home')
 
   <!-- top navigation button -->
   <button
+    v-if="currentSection != 'home'"
     class="fixed bottom-10 right-5 z-50 flex items-center justify-center h-12 w-12 p-3 rounded-full bg-white text-red-500 hover:bg-red-500 hover:text-white"
     :class="{
       'bg-white text-red-500 hover:bg-red-500 hover:text-white': currentSection === 'home',
@@ -117,26 +137,4 @@ let currentSection = ref('home')
 .underline-red {
   border-bottom: 2px solid red;
 }
-/* .myBtn {
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-  position: fixed;
-  bottom: 40px;
-  right: 20px;
-  z-index: 99;
-  border: none;
-  outline: none;
-  background-color: white;
-  color: red;
-  cursor: pointer;
-  padding: 15px;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-}
-.myBtn:hover {
-  background-color: red;
-  color: white;
-} */
 </style>

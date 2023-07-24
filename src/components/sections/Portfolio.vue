@@ -1,68 +1,75 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-
-const tabContent = [
+const projects = [
   {
-    title: 'Main skills',
-    text: 'There are many variations of passages of Lorem Ipsum available...'
+    title: 'Project 1',
+    subtitle: 'Subtitle 1',
+    image: 'src/assets/icons/quackoLogo1.svg',
+    description: 'Lorem ipsum dolor sit amet...'
   },
-  { title: 'Experience', text: 'Here are some of my projects...' },
-  { title: 'Educatian & Certification', text: 'Here are some of my skills...' },
-  { title: 'Hobbies', text: "Here's how you can contact me..." }
+  {
+    title: 'Project 2',
+    subtitle: 'Subtitle 2',
+    image: 'src/assets/icons/quackoLogo1.svg',
+    description: 'Consectetur adipiscing elit...'
+  }
 ]
-
-let activeTab = ref(tabContent[0])
 </script>
 
 <template>
-  <div class="h-screen flex flex-row items-center justify-between">
+  <div class="h-screen flex items-center justify-between">
     <div class="ml-24 max-w-xxl p-6 mx-auto bgColor text-white">
       <h1 class="text-6xl">My latest Projects</h1>
       <p class="text-md mt-5 max-w-xl">
-        There are many variations of passages of Lorem Ipsum available, but the majority have
-        suffered alteration in some form, by injected humour, or randomised words which dont look
-        even slightly believable. If you are going to use a passage of Lorem Ipsum,
+        There are many variations of passages of Lorem Ipsum available...
       </p>
-      <div class="flex space-x-4 mb-2 mt-2 text-xl">
-        <button
-          v-for="tab in tabContent"
-          :key="tab.title"
-          class="btn-tab"
-          :class="{ activeTab: activeTab.title === tab.title }"
-          @click="activeTab = tab"
+
+      <div class="grid grid-cols-2 gap-4 mt-5">
+        <div
+          v-for="project in projects"
+          :key="project.title"
+          class="relative overflow-hidden project-card transform transition-transform duration-200 hover:scale-105"
         >
-          {{ tab.title }}
-        </button>
+          <img :src="project.image" :alt="project.title" class="w-60 h-full object-cover" />
+
+          <div
+            class="overlay-content absolute inset-0 opacity-0 hover:opacity-100 transition-all duration-200 ease-out p-4 h-full flex flex-col justify-between text-white"
+          >
+            <div>
+              <h2 class="text-xl font-bold">{{ project.title }}</h2>
+              <h3 class="text-md mb-2">{{ project.subtitle }}</h3>
+            </div>
+            <p
+              class="text-sm description opacity-0 hover:opacity-100 transition-all duration-500 delay-150"
+            >
+              {{ project.description }}
+            </p>
+          </div>
+        </div>
       </div>
-      <p class="text-md mt-5 max-w-xl">{{ activeTab.text }}</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.blur-background {
-  backdrop-filter: blur(2px);
-}
 .bgColor {
   background-color: rgba(15, 15, 15, 0.95);
 }
-.activeTab {
-  color: rgb(191, 9, 205);
+
+.project-card {
+  transition: transform 0.3s;
 }
-.btn-tab {
-  position: relative;
+
+.project-card:hover {
+  transform: scale(1.05);
 }
-.btn-tab::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 30%;
-  height: 2px;
-  background-color: rgb(191, 9, 205);
-  transition: width 0.3s ease-in-out;
+
+.overlay-content {
+  background: linear-gradient(to top, rgba(57, 255, 20, 0.2), rgba(0, 0, 0, 0.2));
+  transition: opacity 0.3s;
 }
-.btn-tab.activeTab::after {
-  width: 100%;
+
+.overlay-content .description {
+  transition: opacity 0.5s;
+  transition-delay: 0.2s;
 }
 </style>

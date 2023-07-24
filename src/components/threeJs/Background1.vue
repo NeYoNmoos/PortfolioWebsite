@@ -32,7 +32,7 @@ onMounted(async () => {
   loader.load('/src/assets/fonts/helvetiker_regular.typeface.json', function (loadedFont) {
     let textMaker = new ThreeText()
 
-    let material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 }) // White color
+    let material = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 1 })
     title = textMaker.getTextMesh("Hello I'm Matthias", 4, 0.1, material, loadedFont)
     title.position.set(-21, 0, 0)
     title.rotation.set(-Math.PI / 15, 0, 0)
@@ -44,6 +44,14 @@ onMounted(async () => {
     scene.add(title)
     scene.add(subTitle)
   })
+
+  window.addEventListener('resize', onWindowResize, false)
+
+  function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight
+    camera.updateProjectionMatrix()
+    renderer.setSize(window.innerWidth, window.innerHeight)
+  }
 
   window.addEventListener('scroll', handleScroll)
 
