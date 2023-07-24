@@ -3,13 +3,13 @@ const projects = [
   {
     title: 'Project 1',
     subtitle: 'Subtitle 1',
-    image: 'src/assets/icons/quackoLogo1.svg',
+    image: '/icons/quackoLogo1.svg',
     description: 'Lorem ipsum dolor sit amet...'
   },
   {
     title: 'Project 2',
     subtitle: 'Subtitle 2',
-    image: 'src/assets/icons/quackoLogo1.svg',
+    image: '/icons/quackoLogo1.svg',
     description: 'Consectetur adipiscing elit...'
   }
 ]
