@@ -8,6 +8,7 @@ import ThreeText from './ThreeText'
 import { TextureLoader } from 'three'
 import Rocket from './Rocket1.js'
 import { setSmokeCoords, dropSmoke } from './Smoke.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 
 const mount = ref()
 let camera
@@ -15,6 +16,7 @@ let renderer
 let scrollY = undefined as any
 let title
 let subTitle
+let duck
 
 onMounted(async () => {
   window.addEventListener('resize', onWindowResize, false)
@@ -90,6 +92,25 @@ onMounted(async () => {
   borderCube.position.y = -2
   borderCube.rotateY(-0.5)
   scene.add(borderCube)
+
+  let gltfLoader = new GLTFLoader()
+
+  gltfLoader.load(
+    '/three/DuckRubberHat.gltf',
+    function (gltf) {
+      console.log(gltf)
+
+      gltf.scene.position.set(-20, -5, 100)
+      gltf.scene.rotateY(1)
+      gltf.scene.scale.set(3, 3, 3)
+      duck = gltf.scene
+      scene.add(gltf.scene)
+    },
+    undefined,
+    function (error) {
+      console.error(error)
+    }
+  )
 
   // helpers for testing
   // const controls = new OrbitControls(camera, renderer.domElement)
@@ -196,17 +217,20 @@ onMounted(async () => {
   function handleScroll() {
     if (window) {
       // camera movement
-      scrollY = window.scrollY
-      camera.position.z = 30 + scrollY * 0.05
+      let maxScrollTop = document.documentElement.scrollHeight - window.innerHeight
+      let scrollPercent = window.scrollY / maxScrollTop
+
+      scrollY = scrollPercent
+      camera.position.z = 30 + scrollPercent * 200
 
       camera.lookAt(scene.position)
 
       // cube color change
-      let hue = (scrollY % 360) / 360
+      let hue = (window.scrollY % 360) / 360
       targetColor.setHSL(hue, 1, 0.5)
 
-      let startFade = 400
-      let endFade = 1000
+      let startFade = 0.1007049345
+      let endFade = 0.2517623364
       if (title && subTitle) {
         if (scrollY >= endFade) {
           title.material.opacity = 0
@@ -218,10 +242,10 @@ onMounted(async () => {
         }
       }
 
-      let startFadeIn = 600
-      let fullyVisible = 1000
-      let startFadeOut = 1200
-      let fullyInvisible = 1500
+      let startFadeIn = 0.1510574018
+      let fullyVisible = 0.2517623364
+      let startFadeOut = 0.3021148036
+      let fullyInvisible = 0.3776435045
 
       if (scrollY < startFadeIn) {
         profileCube.material.opacity = 0
@@ -258,7 +282,9 @@ onMounted(async () => {
     })
 
     rocket.rotation.y += 0.02
-
+    if (duck) {
+      duck.rotation.y += 0.02
+    }
     // setSmokeCoords(rocket)
     // dropSmoke(mySmokeObject)
 

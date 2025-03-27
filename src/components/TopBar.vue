@@ -12,6 +12,10 @@ const scrollTo = (section: string) => {
   if (element) element.scrollIntoView({ behavior: 'smooth' })
 }
 
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+}
+
 onMounted(() => {
   const sections = ['home', 'about', 'service', 'portfolio', 'kontakt']
   const observer = new IntersectionObserver(
@@ -38,12 +42,12 @@ let currentSection = ref('home')
 <template>
   <!-- top bar -->
   <div class="navbar bg-base-0 top sticky top-0 z-50 text-white">
-    <a class="btn btn-ghost" @click="scrollTo('home')">
-      <img class="h-10" src="../assets/icons/logo.png" />
+    <a class="btn btn-ghost" @click="scrollToTop()">
+      <img class="h-10" src="/icons/faviconQuacko.ico" />
     </a>
     <a
       class="btn btn-ghost normal-case text-xl rounded-none"
-      @click="scrollTo('home')"
+      @click="scrollToTop()"
       :class="{ 'underline-red': currentSection === 'home' }"
       >Home</a
     >
@@ -112,7 +116,7 @@ let currentSection = ref('home')
     }"
     title="Go to top"
     ref="myBtn"
-    @click="scrollTo('home')"
+    @click="scrollToTop()"
   >
     <div class="material-icons">arrow_upward</div>
   </button>
